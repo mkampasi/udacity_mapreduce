@@ -1,0 +1,565 @@
+"14564"	"notepad++ and python - getting brief blackbox - any help?"	"cs101 python notepad++ windowsxp"	"100003356"	"<p>Hi.  I'm very new to this, but want to play with Python locally.</p>
+<p>I downloaded python 2.7, downloaded notepad++, set up my Run Python shortcut per @XavierP suggestion, and saved a very simple file (new.py).  Whenever I try to run my file, the ""blackbox"" briefly appears and disappears.  (where blackbox is like the old DOS box).  I am running on XP.  </p>
+<p>The file contains </p>
+<p>x=1 <br>
+print x</p>
+<p>I believe the Python download is ok because I can run in IDLE (but I can't get used to the &gt;&gt;&gt; at the beginning of every line, and it is not intuitive for things like adding a line above an existing line....)  I sure would like to be able to run my files from notepad++.</p>
+<p>Any ideas what I might be doing wrong?  (This all is very new to me - I had to Wikipedia IDE and don't understand the command line options for notepad++ shortcuts....)  But it is very interesting, and I'd really appreciate it if anyone has suggestions.</p>
+<p>Thanks.</p>"	"question"	"\N"	"\N"	"2012-03-02 03:51:29.13521+00"	"0"	""	"\N"	"100003356"	"2012-03-07 03:17:27.425407+00"	"18759"	"\N"	"\N"	"599"	"f"
+"3001660"	"Unit 4-8. I can't figure out what's wrong with my code. Can anybody help?"	"spoiler cs373 unit4-8 m-48726347"	"100063289"	"<p>I've ran my code through fantastic test situations and it always gives me correct results. However, the grader tells me that my code is incorrect as it failed to work with the example in the lecture. Can anybody help me see where I'm doing it wrong? </p>
+<p>Also, I hope you pardon my coding style. I'm fantastically new to python. </p>
+<p>Here's my code:</p>
+<pre><code>from copy import copy,deepcopy
+
+grid = [[0, 0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 0]]
+
+# copy grid for marking visited cells
+gridcopy = deepcopy(grid)
+
+init = [0, 0]
+goal = [len(grid)-1, len(grid[0])-1] # Make sure that the goal definition stays in the function.
+delta = [[-1, 0 ], # go up
+        [ 0, -1], # go left
+        [ 1, 0 ], # go down
+        [ 0, 1 ]] # go right
+
+delta_name = ['^', '&lt;', 'v', '&gt;']   
+cost = 1
+
+def move(origin,direction):
+
+    # determine direction
+    currcost, curry, currx = origin
+    index = delta_name.index(direction)
+
+    newcost = currcost + cost
+    newy = curry + delta[index][0]
+    newx = currx + delta[index][1]
+
+    rightedge = len(gridcopy[0])-1
+    leftedge = 0
+    topedge = 0
+    bottomedge = len(gridcopy)-1
+
+    outofboundsy = (newy &gt; bottomedge) | (newy &lt; topedge)
+    outofboundsx = (newx &gt; rightedge) | (newx &lt; leftedge)
+
+    if (outofboundsx | outofboundsy):
+        # print 'Out of bounds'
+        return None
+
+    checkobs = (gridcopy[newy][newx]==1)
+
+    if (checkobs):
+        #print 'Obstacle encountered at', newy,newx
+        return None
+
+    # print 'Valid move'
+    # mark off the cell as visited/non-navigable
+    gridcopy[newy][newx] = 1
+    return [newcost,newy,newx]
+
+def search():
+
+  # initialize lists
+  frontier = []
+
+  # initialize flags
+  goalreached = False
+
+  # add origin to frontier
+  frontier.append([0, init[1], init[0]])
+
+  while(not goalreached and (len(frontier)!=0)):
+      currentyx = frontier.pop(0)
+
+      # check if goal is reached
+      if (currentyx[1:3] == goal):
+          goalreached = True
+
+      # expand the frontier
+      # increment validemovectr for every valid move
+      # if validmovectr is still zero after going through loop,
+      # there is no path to goal
+      if (not goalreached):
+          validmovectr = 0
+          for i in range(len(delta)):
+              newpos = move(currentyx,delta_name[i])
+              if (newpos != None):
+                  validmovectr +=1
+                  frontier.append(newpos)
+
+          if ((validmovectr == 0) &amp; (len(frontier)==0)):
+              goalreached = False
+              print 'fail'
+
+  path = currentyx[:]
+  return path # you should RETURN your result
+</code></pre>"	"question"	"\N"	"\N"	"2012-07-05 03:09:58.882181+00"	"0"	""	"3031139"	"100061141"	"2012-07-05 09:10:29.301925+00"	"3002148"	"\N"	"\N"	"330"	"f"
+"5014924"	"Private/Hidden variables in python"	"cs212 python discussion"	"100001468"	"<p>In JavaScript we can make use of ""hidden"" variable, which <strong>cannot</strong> be changed outside of the class definition (we can write methods in the Bank class, and call these to set/change hidden variable price, but we can't just change it recklessly).</p>
+<pre><code>function Bank( name, balance ) {
+    var balance = balance;
+    this.name = name;
+
+    this.getBalance = function() {
+        return balance;
+    };
+}
+</code></pre>
+<p>In Python there are private variables (beginning with an underscore) but these seem to just be labelled ""private"" rather than actually being unchangeable. Is there any way to replicate this behaviour in Python?</p>
+<p><em>Note: As I was thinking about this, there is another issue that the <code>getBalance</code> method could be changed... Perhaps there is a way to ""lock"" a method...</em></p>"	"question"	"\N"	"\N"	"2012-08-13 11:37:25.748836+00"	"0"	""	"5138815"	"100044380"	"2012-08-13 19:10:08.553882+00"	"5022538"	"\N"	"\N"	"1711"	"f"
+"5012349"	"Final Exam 4: Type Error on submission"	"cs212 meta final-4 staff"	"100062958"	"<p>I saved this problem for the last because it looked like a fun one to program up. But I get the error message: ""Incorrect. There was a TypeError running your function."" when I submit it. </p>
+<p>I must confess I didn't read the instructor comments on the question until after I finished the program, so my state variable is different than the correct one (I kept only the head of each car). I ended up writing a small routine to translate my answer back to the expected one. I think I did it right. Here is a partial result for puzzle1:</p>
+<p>ans[0] = [('*', (30, 31)), ('G', (9, 10)), ('Y', (38, 46, 54)), ('P', (17, 25, 33)), ('O', (41, 49)), ('B', (36, 44, 52)), ('A', (42, 43)), ('|', (0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 23, 24, 32, 39, 40, 47, 48, 55, 56, 57, 58, 59, 60, 61, 62, 63)), ('@', (31,))]</p>
+<p>ans[1] = ('A', -3)</p>
+<p>...</p>
+<p>ans[-2] = ('*', 4)</p>
+<p>ans[-1] = [('*', (30, 31)), ('G', (9, 10)), ('Y', (38, 46, 54)), ('P', (17, 25, 33)), ('O', (41, 49)), ('B', (36, 44, 52)), ('A', (42, 43)), ('|', (0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 23, 24, 32, 39, 40, 47, 48, 55, 56, 57, 58, 59, 60, 61, 62, 63)), ('@', (31,))]</p>
+<p>Is this the correct format?</p>
+<p>My program seems to work on my laptop with grids up to at least 10.</p>
+<p>Thanks in advance for any help.</p>"	"question"	"\N"	"\N"	"2012-06-01 08:03:41.124496+00"	"0"	""	"5138950"	"100027804"	"2012-08-15 19:00:44.173436+00"	"5022661"	"\N"	"\N"	"373"	"f"
+"16342"	"Homework 1 questions 7, 8 & 9"	"cs101 homework1 hw1.8 hw1.7 hw1.9"	"100005300"	"<p>I answered the last 3 questions as follows.<br>
+I copied only what I had typed in after the line ""#INCORRECT""</p>
+<h2>Question 7</h2>
+<p>print text.find(""hoo"")</p>
+<p>text = ""first who"" # Reset text to remove 'hoo'</p>
+<p>print text.find(""hoo"")<br>
+Question 8</p>
+<hr>
+<p>print text.find(""zip"",text.find(""zip"")+1)</p>
+<p>text = 'all zip files are compressed'</p>
+<p>print text.find(""zip"",text.find(""zip"")+1)</p>
+<h2>Question 9</h2>
+<h1>rounding assumption if the portion to the right of the decimal is .5 or greater</h1>
+<h1>the number is rounded up</h1>
+<h1>if the portion to the right of the decimal is less than .5</h1>
+<h1>the number is rounded down</h1>
+<h1>this is consistent with the instructions at the bottom of this page</h1>
+<h1>as per the question instructions this is not designed to work with negative numbers</h1>
+<h1>this is accomplished by adding a rounding factor 0.5 which also ensures that x's</h1>
+<h1>variable is type real</h1>
+<h1>the following code was test with x = 3.14159; x = 27.63 &amp; x = 0</h1>
+<h1>it was set back to x = 3.14159 for submission</h1>
+<p>rounding_factor = 0.5 # used to round numbers to nearest whole number</p>
+<p>string_x = str(x + rounding_factor) # convert number to a string</p>
+<p>print string_x[:string_x.find(""."")] # print rounded number</p>
+<p>x = 27.63</p>
+<p>string_x = str(x + rounding_factor) # convert number to a string</p>
+<p>print string_x[:string_x.find(""."")] # print rounded number</p>
+<p>Viewing the answer video my coding is almost exactly the same as given. Reading some of the other posts it appears that by posting 2 answers I may have fallen foul of the automated grading program. If it really is that simple, maybe that should have been explained more clearly in the homework questions.<br>
+So I get 3 incorrect and a 67 grade based on a technicality.</p>
+<p>Antoine65</p>"	"question"	"\N"	"\N"	"2012-03-03 11:14:14.294152+00"	"-1"	""	"52014"	"100005396"	"2012-03-03 11:34:08.286058+00"	"21236"	"\N"	"\N"	"226"	"f"
+"9006956"	"Karma Do you know what it is?"	"ph100 discussion karma tshirt"	"100066904"	"<p>So I was thinking............what the heck is this forum thing?  What they hack are these points.......what is a user..........badges........we dont need any stinking badges.  For the first week I just did the problems and that was about it.  But then the problems got a little trickier and I had to find some help........so I went to the forums because I had to ........and I asked questions and I only looked in the areas where I was looking for answers.....the minimum. But slowly things began to change and I realized there were some interesting things that were out there and there were some things that were discussed that did not relate directly to the questions.  I saw a lot of people being really helpful and really smart. I was outside looking in. Then one day........I dont know when.....someone asked a question and I tried to be helpful and it worked and I got some points and it was like ok this is neat, helping people. That is really the lesson though of Udacity......sure you can learn things but without the forum where is the fun.  It is like playing video soccer vs being on the field with real people.  I think they ought to send out Karma shirts with a little quote like</p>
+<p>“A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, can even enable a change in the destiny of all humankind.”</p>
+<p>this is an idea that just came to me......and you can quote me....David Benson ......ok.......no it was not me it was stolen off of some Karma site but it sounds good.  Have the quote on the back of the Tshirt.......the Udacity logo on the front and maybe the karma points on the sleeve. 500 1.0k 1.5k 2.0k 2.5k.......so we have not gone completely un American and we like to compete a little bit and show achievement but it is subtle and on the side.  What a great talking point.........what a great way of advertising.  But I remember awhile back thinking.......I can be helpful like Boogs, Rosa, Oldschool and Kedr were and this learning thing would not be as rich and enjoyable if there was not the exchange in the forum.  It was great to have some one to help you out.  So if you want a  Udacity Tshirt with your karma points all you have to do is earn 500 and Andy will get you one.  So cast your vote.......up vote this little question and Andy will see what he can do.  Ok......so maybe he cant do that but it is a nice idea isnt it?   I have to say that Ferris Buellers Day Off is my favorite movie and I like his humor and sometimes I know this is Physics but I like to have a little humor and for all of those people who did order the books from amazon for Longitude ( see posting ) I got so many toaster ovens that I am now selling them in a little shop and making some great money.  Thank you.        </p>"	"question"	"\N"	"\N"	"2012-08-03 20:10:01.333563+00"	"0"	""	"9053692"	"100051572"	"2012-08-04 20:20:15.678325+00"	"9009634"	"\N"	"\N"	"228"	"f"
+"44272"	"HW 4.5 Confused"	"cs101 4.5 hw"	"100004738"	"<p>I have embraced the all or nothing aspect of homework grading. And when I get one wrong, I can always find some strange edge case that I missed. I can't find one with this code. My solution may not be pretty or efficient (compared to the supplied answer), but I think it's kind of cool and it seems to work. I'm not griping. I would just like to know where I went wrong.</p>
+<p>Here is the code and the output of numerous tests. Sorry about the whitespace, but that was the only way I could get the code to display properly in this post. I did not include the print tests in my submission (just the function). I assume that would cause the HW to be marked wrong:</p>
+<pre><code>def split_string(source,splitlist):
+
+    sepsList = []
+
+    for i in range(len(source)):
+
+        if source[i] in splitlist or source[i] == ' ':
+
+            sepsList.append(i) #creates a list of the indexes in source where the separators are
+
+    sepsList.append(len(source)) #indexes the end of the input string
+
+    index = 0
+
+    words = []
+
+    for i in sepsList:
+
+        if index != i: #if they are equal that means there were two separators next to each other, don't append, move on
+
+            words.append(source[index:i]) #appends to the list the character/s between two separators
+
+        index = i + 1
+
+    return words
+
+print split_string(""This is a test-of the,string separation-code!"", "" ,!-"")
+
+print split_string(""After  the flood   ...  all the colors came out."","" ."")
+
+print split_string(""++.. This is another ...?? test of --the split_string code..%"", '+.?- %_')
+
+print split_string(""++.. This is another ...?? test of --the split_string code..%"",'')
+
+print split_string("""", '+.?- %_')
+
+print split_string("""",'')
+
+print split_string(""!!this is a test with-- no separator at the end"", '-!---!!!!!!!!!!')
+</code></pre>
+<hr>
+<pre><code>['This', 'is', 'a', 'test', 'of', 'the', 'string', 'separation', 'code']
+
+['After', 'the', 'flood', 'all', 'the', 'colors', 'came', 'out']
+
+['This', 'is', 'another', 'test', 'of', 'the', 'split', 'string', 'code']
+
+['++..', 'This', 'is', 'another', '...??', 'test', 'of', '--the', 'split_string', 'code..%']
+
+[]
+
+[]
+
+['this', 'is', 'a', 'test', 'with', 'no', 'separator', 'at', 'the', 'end']
+</code></pre>
+<hr>
+<p>OK, so test 1 and 2 are supplied in the HW. Test 3 has separators at the end and beginning of the string and makes sure there is no error when a space is included in the user-provided separator string. Test 4 makes sure there isn't an error if an empty list of separators is passed into the function. Test 5 and 6, checks for errors when the string is empty (with a separator list or an empty separator list). The final test makes sure everything is fine if the last character is not a separator and it checks for an error if the user includes a separator more than once. I thought this was where I might have gone wrong, but the output looks good.</p>
+<p>Any thoughts would be greatly appreciated. Thanks,</p>
+<p>bubbled</p>"	"question"	"\N"	"\N"	"2012-03-21 04:45:13.322861+00"	"0"	""	"142040"	"100004414"	"2012-03-21 10:44:53.772351+00"	"58644"	"\N"	"\N"	"271"	"f"
+"2017143"	"Unit 3 #26 Grading Error"	"m-48753039 unit3-26 cs101 grading_bug grading"	"100032072"	"<p>I know that getting these questions right doesn't count for anything, but it still bothers me that it is saying my submission is incorrect. The exact message I got was... ""Incorrect. Your code did not find the correct index -1 for list ['Job', 'Andy', 'Peter', 'Sean', 'Michael', 'Gundega', 'Sarah'] and element 'Kathleen'. Your submission passed 10 out of 12 test cases."" However, upon testing that list and element, I got the correct answer of -1. Any assistance would be greatly appreciated.</p>
+<p>def find_element (a,b):</p>
+<pre><code>n=0
+x=0
+for e in a:
+    if e == b:
+        return n                    
+    else:            
+        x=x+1            
+        if x==len(a):
+            return""-1""
+    n=n+1
+</code></pre>
+<p>print find_element([1,2,3],3)</p>
+<h1>&gt;&gt;&gt; 2</h1>
+<p>print find_element(['alpha','beta'],'gamma')</p>
+<h1>&gt;&gt;&gt; -1</h1>
+<p>print find_element(['Job','Andy','Peter','Sean','Michael','Gundega','Sarah'],'Kathleen')</p>
+<h1>&gt;&gt;&gt; -1</h1>"	"question"	"\N"	"\N"	"2012-07-19 06:44:01.129938+00"	"0"	""	"\N"	"100025279"	"2012-07-19 07:07:12.230666+00"	"2023680"	"\N"	"\N"	"253"	"f"
+"6008292"	"How many years of programming experience?"	"cs253 discussion meta"	"100027955"	"<p>Hey Guys</p>
+<p>I'm sure that we have a very diverse class undertaking this course. It would be interesting to see how many years of programming experience(if at all) does this class have on average? I really hope to see the majority as beginners but a few veterans would be great to take guidance from.</p>
+<p>Thanks</p>"	"question"	"\N"	"\N"	"2012-04-26 07:20:15.492682+00"	"5"	""	"\N"	"100032279"	"2013-08-21 19:45:32.859997+00"	"6010261"	"\N"	"\N"	"2175"	"f"
+"1032863"	"I cannot submit the final exam progamming assignment!"	"cs373 internal_error error final final-20"	"100009988"	"<p>I cannot submit the code for the final exam progamming assignment. I cannot even testrun the code at the server.</p>
+<p>When will this be fixed? The deadline for the exam is closing in!</p>
+<p>In the ajax response for the URL <a href=""http://www.udacity.com/ajax"" rel=""nofollow"">http://www.udacity.com/ajax</a> I get the HTML for the 500 page. Please ask me if you need any more debugging info.</p>
+<p>I would really like to get a chance to submit my code before the deadline since I have worked on it for some time now and it is the only question that I have not finished yet...</p>
+<p>If the problem cannot be fixed duing easter, could we get a new deadline?</p>"	"question"	"\N"	"\N"	"2012-04-07 14:56:56.993013+00"	"0"	""	"1133137"	"100009988"	"2012-04-07 14:56:56.993013+00"	"1044936"	"\N"	"\N"	"260"	"f"
+"6022190"	"Why using urllib2, I get object of the type str?"	"m-48728195 unit5-2 cs253"	"100075209"	"<p>Hello.<br>
+I am experiencing some difficulties with unit 5. While doing <code>url = urllib2.urlopen(""http://localhost:8080"").read()</code> , then <code>dir(url)</code> gives me this strange result :</p>
+<p>['<strong>add</strong>', '<strong>class</strong>', '<strong>contains</strong>', '<strong>delattr</strong>', '<strong>doc</strong>', '<strong>eq</strong>', '<strong>format</strong>', '<strong>ge</strong>', '<strong>getattribute</strong>', '<strong>getitem</strong>', '<strong>getnewargs</strong>', '<strong>getslice</strong>', '<strong>gt</strong>', '<strong>hash</strong>', '<strong>init</strong>', '<strong>le</strong>', '<strong>len</strong>', '<strong>lt</strong>', '<strong>mod</strong>', '<strong>mul</strong>', '<strong>ne</strong>', '<strong>new</strong>', '<strong>reduce</strong>', '<strong>reduce_ex</strong>', '<strong>repr</strong>', '<strong>rmod</strong>', '<strong>rmul</strong>', '<strong>setattr</strong>', '<strong>sizeof</strong>', '<strong>str</strong>', '<strong>subclasshook</strong>', '_formatter_field_name_split', '_formatter_parser', 'capitalize', 'center', 'count', 'decode', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'index', 'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']</p>
+<p>but in lectures instructor doing the same gets the different result. What's is wrong?</p>"	"question"	"\N"	"\N"	"2012-05-20 17:45:54.964604+00"	"0"	""	"\N"	"100000452"	"2012-05-20 18:23:43.724383+00"	"6027728"	"\N"	"\N"	"342"	"f"
+"7008269"	"Answer to Final 7-6 (possible bug?)"	"cs262 hw7-6"	"100006848"	"<p>While reviewing the answer provided by Peter I noticed that it doesn't handle self referencing assignment correctly. <br>
+For example, </p>
+<pre><code># x = x + 1
+# y = x + 1
+example = [ (""assign"",""x"",(""binop"",(""identifier"",""x""),""+"",(""number"",""1""))),
+            (""assign"",""y"",(""binop"",(""identifier"",""x""),""+"",(""number"",""1"")))]
+</code></pre>
+<p>shouldn't be optimized, but it does to </p>
+<pre><code># x = x + 1
+# y = x
+[('assign', 'x', ('binop', ('identifier', 'x'), '+', ('number', '1'))), 
+('assign', 'y', ('identifier', 'x'))]
+</code></pre>
+<p>(I think just moving the code to update the cache should fix this.)</p>
+<p>Am I misunderstanding something?  What do you guys think?</p>
+<p><strong>Answer Code (from video)</strong>  </p>
+<pre><code>def uses(exp):
+    etype = exp[0]
+    if etype == ""identifier"":
+        return [exp[1]]
+    elif etype == ""binop"":
+        return uses(exp[1]) + uses(exp[3])
+   else:
+        return []
+
+def optimize(ast): 
+    available = { }
+    result = []
+    for stmt in ast:
+        new_stmt = stmt
+        rhs = stmt[2]
+        lhs = stmt[1]
+        if rhs in available and available[rhs] != []:
+            simplify = available[rhs][0]
+            new_stmt = (""assign"", lhs, (""identifier"", simplify))
+
+        for key in available:
+            available[key] = [ x for x in available[key] if not (lhs in uses(key)) ]
+
+        if rhs in available:
+            available[rhs] = [lhs] + available[rhs]
+        else: 
+            available[rhs] = [lhs]
+        result = result + [new_stmt]
+    return result
+</code></pre>"	"question"	"\N"	"\N"	"2012-06-11 01:38:47.502919+00"	"1"	""	"7064461"	"100006848"	"2012-06-11 17:06:10.181709+00"	"7010963"	"\N"	"\N"	"213"	"f"
+"15100"	"I just spent an hour on this"	"cs101 homework1 hw1"	"100004435"	"<p>I was about to complain about Homework 1 Python Programming 2 and since english is not my native language I had to spend an hour thinking how to explain my thoughts, but right when a was about to finish the explaintion of why I was wrong flashed before my slow brain, so I said ohhhh crap! I already spent my time so I'll share anyways or it would probably be a double waste lol</p>
+<blockquote>
+<p>First I got this incorrect, but I<br>
+think what was expected to be the<br>
+right answer, is what actually is<br>
+incorrect, and this is why. I'm giving<br>
+numbers to the statements so we can<br>
+refer to them as number ""N"" later</p>
+<h2>1</h2>
+<p>a = x <br>
+a = a + 1</p>
+<p>I think is answer was not correct. I<br>
+did not select this one. First line:<br>
+Here ""a"" refers to ""x"". If you print<br>
+""a"" at this point you will get ""x"" as<br>
+result right?. We are all right so<br>
+far. Second line: ""a"" refers to ""a +<br>
+1"" which is the same as ""x + 1"". Here<br>
+is what I think is wrong. Peter says<br>
+it is correct because you still have<br>
+""x"", yeah plus one, but still ""x"", I<br>
+think he is not paying attetion to<br>
+that ""+ 1"" because even when you still<br>
+have ""a"" on the right, which values<br>
+""x"", if you print thet variable ""a"" at<br>
+this point, you get ""x + 1"" as result<br>
+which is NOT the same as ""x"" on the<br>
+first line. If ""x"" values ""2"" you<br>
+would get ""3"" as result in the end,<br>
+which is not the same as the first ""x""</p>
+<p>In short, he evaluated what ""a"" refers<br>
+to, no matter else was there, no<br>
+matter that ""+ ...""</p>
+<p>Now  lets see this other statement</p>
+<h2>2</h2>
+<p>x = x + 1 <br>
+x = x</p>
+<p>First line: ""x"" on the left is a<br>
+variable, ""x + 1"" is a value for that<br>
+variable. ""x"" values ""x + 1"" Right?<br>
+Good. Taking his color and figures<br>
+technique (which I like actually),<br>
+here we have the new color ""red<br>
+triangle + 1"" as he said, but in the<br>
+answer video, he is still thinking of<br>
+""x"" as ""red triangle"" but this is not<br>
+correct, ""x"" is not ""red triangle""<br>
+anymore. This is a new statement an<br>
+""x"" can have any new value, so in this<br>
+case is ""red triangle + 1"" which is ""x<br>
++ 1"" Ok now, second line: ""x"" on the left refers to ""x"" on the right which<br>
+yes? and the ""x"" on the right already<br>
+values ""x + 1"" which is the new color<br>
+""red triangle + 1"" yes? so this is the<br>
+same color, the same value it was<br>
+before. Correct? If you print ""x"" in<br>
+the end, you will get ""x + 1"" as<br>
+result which was you first value for<br>
+""x"" --for this new statement-- so<br>
+""which of the following statements<br>
+leave the value of --vaiable ""x"" the<br>
+same-- as it was before the statement""</p>
+</blockquote>"	"question"	"\N"	"\N"	"2012-03-02 13:47:41.101883+00"	"0"	""	"48602"	"100005237"	"2012-03-02 16:36:10.806684+00"	"19666"	"\N"	"\N"	"377"	"f"
+"1017359"	"HW 3.2 - a Markov Chain"	"cs373 eigenvectors markov markovchain hw3-2"	"100008318"	"<p>This problem is a simple example of a Markov-chain.  I recall first encountering this concept decades ago when I overheard some physics grad students studying for their comprehensive exams.  A problem that had appeared on a comp in a previous year involved something like this:  </p>
+<p>Three people are passing a ball around. Person A passes the ball to person B with probability .3, and to person C with probability .7;  person B passes the ball to person A with probability .6 and to person C with probability .4;  and person C passes the ball to person A or person B with equal probabilities. In the long run, what proportion of time will each person have the ball?  </p>
+<p>I won't go into the formal details, but the actual process of solving this problem is fairly easy... You make a matrix of all those probabilities (so that the columns sum to 1).  Raise that matrix to a high power, and the answer to the question is repeated in each column of the resulting power matrix (which has converged to its eigenvectors).  </p>
+<p>So to solve that given problem, create the transition probability matrix:  </p>
+<pre><code>[[0.0,  0.6,  0.5],
+ [0.3,   0.0,  0.5],
+ [0.7,   0.4,  0.0]]
+</code></pre>
+<p>Raising that matrix to the 100 power, we get:</p>
+<pre><code>[[ 0.35242291,  0.35242291,  0.35242291],
+ [ 0.28634361,  0.28634361,  0.28634361],
+ [ 0.36123348,  0.36123348,  0.36123348]]
+</code></pre>
+<p>Which can be interpreted to mean that person A will have the ball about 35% of the time, person B 29%, and person C 36% of the time. </p>
+<p>The same process works to solve problems such as this one:  </p>
+<p>Suppose there are 3 states with the following migration patterns.  Those who live in state A, remain there with probability .7, while with probability .2 they will move to state B, and with probability .1 they will move to state C.  Of those who live in state B, 10% move to state A, 60% stay in state B, and 30% move to state C.  And finally, of those who live in state C, 15% move to state A, 65% move to state B, and 20% stay in state C.  Initially the population of the states (respectively) are (in millions)  10, 20, 30.  In the long run, what will the populations be of these 3 states?  </p>
+<p>The transition probability matrix for this Markov process is:  </p>
+<pre><code>[[ 0.7, 0.1, 0.15],
+ [ 0.2, 0.6, 0.65],
+ [ 0.1, 0.3, 0.2]]
+</code></pre>
+<p>Raising this matrix to the hundredth power (nothing special about 100, but it seems large enough to have essentially converged to the steady-state solution), we obtain the matrix:</p>
+<pre><code>[[ 0.27777778  0.27777778  0.27777778]
+[ 0.5         0.5          0.5       ]
+[ 0.22222222  0.22222222  0.22222222]]
+</code></pre>
+<p>Multiplying this 3x3 matrix times the column vector of the initial populations,</p>
+<pre><code>[[10.],
+ [20.],
+ [30.]]
+</code></pre>
+<p>we obtain the long-term (steady-state) populations of the three states:</p>
+<pre><code>[[16.67],
+ [30.00],
+ [13.33]]
+</code></pre>
+<p>These examples are 3x3, but the same idea works for nxn systems.</p>"	"question"	"\N"	"\N"	"2012-03-10 23:26:10.987472+00"	"10"	""	"1076121"	"100008318"	"2012-03-13 01:38:02.899762+00"	"1025988"	"\N"	"\N"	"1612"	"f"
+"6013885"	"Unit 3-30 example not running"	"cs253 unit3-0"	"100076379"	"<p>I can't get anything to load on the local host(just a blank page):   </p>
+<pre><code>import os
+import webapp2
+import jinja2
+
+from google.appengine.ext import db
+
+template_dir=os.parth.join(os.parth.dirname(_file_), 'templates')
+
+jinja_env=jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),  
+                                 autoescape = True)
+
+class Handler(webapp2.RequestHandler):  
+  def write(self, *a, **kw):  
+    self.response.out.write(*a, **kw)
+
+  def render_str(self, template, **params):  
+    t = jinja_env.get_template(template)  
+    return t.render(params)
+
+  def render(self, template, **kw):  
+    self.write(self.render_str(template, **kw))
+
+class MainPage(webapp2.RequestHandler):  
+  def get(self):  
+      self.render(""front.html"")
+</code></pre>
+<p>app = webapp2.WSGIApplication([('/', MainPage)], debug=True)  </p>
+<p>The front.html (I made a directory called templates is there a certain way I need to link this?)  </p>
+
+
+<p>&lt;html&gt;<br>
+    &lt;head&gt;<br>
+        &lt;title&gt;/ascii/&lt;/title&gt;<br>
+    &lt;/head&gt;</p>
+<pre><code>&lt;body&gt;
+    &lt;h1&gt;/ascii/&lt;/h1&gt;
+
+    &lt;form method=""post""&gt;
+        &lt;label&gt;
+            &lt;div&gt;title&lt;/div&gt;
+            &lt;input type=""text"" name=""title""&gt;
+        &lt;/label&gt;
+
+        &lt;label&gt;
+            &lt;div&gt;art&lt;/div&gt;
+            &lt;textarea name=""art""&gt;&lt;/textarea&gt;
+        &lt;/label&gt;
+
+    &lt;/form&gt;
+
+&lt;/body&gt;
+</code></pre>
+<p>&lt;/html&gt;</p>
+<p>The app file</p>
+<pre><code>application: bigmacjr86  
+version: 1  
+runtime: python27  
+api_version: 1  
+threadsafe: yes
+
+handlers:  
+- url: /favicon\.ico  
+  static_files: favicon.ico  
+  upload: favicon\.ico
+
+- url: /.*  
+  script: main.app
+
+libraries:  
+- name: webapp2  
+  version: ""2.5.1""  
+- name: jinja2  
+  version: 2.6  
+- name: markupsafe  
+  version: latest
+</code></pre>"	"question"	"\N"	"\N"	"2012-05-02 15:28:45.479708+00"	"0"	""	"6092637"	"100065272"	"2012-05-03 20:47:06.338375+00"	"6017429"	"\N"	"\N"	"323"	"f"
+"1024239"	"A gripe about unit 4 and some suggestions"	"cs373 python hw4 suggestion"	"100011158"	"<p>First of all, thanks to all of you guys at udacity for doing such an amazing job so far with the course material and coding environment. You make an immensely complex problem like a robot car really simple without drowning the students in silly squiggly math.</p>
+<p>Now :<br>
+I have a gripe about unit 4 code - In all mainstream programming languages, arrays are stored row major (ignore matlab and fortran)<br>
+So far in the course we accessed 2d arrays as grid[y][x] and iterated over x in the inner loop and y in the outer loop - This is extremely natural to someone who does a lot of programming.<br>
+The combination of reversing this order and the fact that some of us are not comfortable/familiar with python, makes one do stupid typos while coding. I hope you will maintain a consistent y, x ordering from here on out.</p>
+<p>A few suggestions for next time around:</p>
+<p>1) Please do not restrict the programming language to python alone! Look at how it's done in topcoder.com and google code jam - You have a problem description and test cases, and a standard template to code with. The choices available there are C++, Java, C#, python and VB.NET - Something for everyone. In fact if you keep your input/output interfaces using simple text files or stdin/stdout, you could allow a huge range of languages. Personally I would be about 10 times faster expressing myself in C++ than python, and its so much more easy for me to detect incorrect code in a language I am familiar with.</p>
+<p>2) Display a countdown timer for the homework deadline. </p>
+<p>3) After each homework submission deadline, post a proper complete commented solution that works and can be used as a reference to see where we went wrong.</p>
+<p>4) In the progress tab, show some information about why the answer was incorrect ( topcoder does this - it shows details about the failed test cases ). We'd like to know if it was our understanding that was wrong or whether it was a coding implementation mistake or whether it was a typo.</p>
+<p>So there you go, I hope these suggestions are useful. Anyway the point is were having great fun learning and in the end grades are not so important as the fact that we understood the principles involved.</p>
+<p>Thank you once again!</p>"	"question"	"\N"	"\N"	"2012-03-20 08:19:57.6525+00"	"4"	""	"\N"	"100011939"	"2012-03-20 12:22:41.656589+00"	"1033010"	"\N"	"\N"	"300"	"f"
+"2000089"	"Protips - Code Formatting and helpful forum features."	"cs101 code format howto sticky meta protip"	"100000461"	"<p>G'day Gang! </p>
+<p>I posted this for the Feb 2012 running of CS101, and we've had to refer to it many times during the running of that course. I am sure there are many new students in this beginner course, so it would be good to get you started off on the right foot. </p>
+<p>There are many of us here who spend a lot of time trying to help. One thing I see people doing over and over is posting code, but they don't format it properly, so it's very hard to read, and impossible to copy/paste.</p>
+<p>Python is a language where seemingly unimportant things like indents matter. Especially as we move on to functions (procedures) and more complicated code. You could post code that would otherwise work perfectly, but if it's not formatted correctly, we can't tell that you have an indenting problem. If your perfect code does have an indentation problem, it won't run. We can't see that if you don't format your code. </p>
+<p>Later in the units, when the code is more than a couple of lines long, it helps us if we can copy and paste it into our IDE's to help you find your problem. If it's not formatted properly, we can't (easily) do that. </p>
+<p>""How do I format my code on the forums?"" you may ask... well, it's simple. Let me show you:</p>
+<p><img alt=""How to format your code properly for the forums"" src=""http://www.udacity-forums.com/cs101/upfiles/Code_Formatting.png""> </p>
+<p>That's all there is to it. If you need to write above or below the code you're posting, just leave a blank line between the code and the non-code text, otherwise the formatting may get screwed up. </p>
+<p>You can also format code when your are leaving a comment (rather than a new answer) by using the </p>
+<pre><code>&lt;pre&gt;&lt;/pre&gt;
+</code></pre>
+<p>Tags. When you leave a comment you don't get the menu above your editor with the little buttons, so this is handy to know. </p>
+<p>You could just post your code like this:</p>
+<pre><code>&lt;pre&gt;  
+def count(input):
+    while i &lt;= input:
+        i++
+    return i
+&lt;/pre&gt;
+</code></pre>
+<p>and it will format as so: </p>
+<pre>def count(input):
+    while i &lt;= input:
+        i++
+    return i</pre>
+
+<p>Thanks to <a href=""http://forums.udacity.com/users/100005385/idev"">@iDev</a> and <a href=""http://forums.udacity.com/users/100008283/fnenu-1"">@fnenu</a> for those comments below. </p>
+<p>Also, when people help you, don't forget to give them a thumbs up, and when your question has been answered, don't forget to mark your question as answered. </p>
+<p>To the left of every post are some icons. You can choose which answer best answers your question, and mark that answer as the ""accepted answer"" <br>
+<img alt=""Accepted Answer"" src=""http://www.udacity-forums.com/cs101/upfiles/Accepted_answer_1.png""></p>
+<p>Happy coding! </p>"	"question"	"\N"	"\N"	"2012-04-17 04:05:18.490053+00"	"60"	""	"2073977"	"100012219"	"2012-05-23 03:17:28.770547+00"	"2009032"	"\N"	"\N"	"1858"	"f"
+"6020898"	"Error while defining valid_month"	"unit2 m-48740149 cs253 unit2-37"	"100004321"	"<p>Hi there!<br>
+I'm quite behind schedule and very frustrated. I hope you guys can help me.</p>
+<p>I’m stuck around unit 2-37. I’m trying to add all the valid_month valid_day…functions to my code, but every time I try to add it. My app stops working (locally).<br>
+I’m adding all the code after the import webapp2. The app works perfectly fine, until I add the def valid_month. Then it keeps giving me an error 500. If I edit out the def valid_month the app starts working again. I have no idea what’s going on.<br>
+Thanks a lot!!</p>
+<p>Here is my code:</p>
+<pre><code>    form = """"""
+&lt;form method = ""post""&gt;
+    What is your birthday?
+        &lt;br&gt;
+        &lt;label&gt;Month  
+    &lt;input type=""text"" name=""month""&gt;
+        &lt;/label&gt;
+        &lt;label&gt;Day  
+    &lt;input type=""text"" name=""day""&gt;
+        &lt;/label&gt;
+        &lt;label&gt;Year  
+    &lt;input type=""text"" name=""year""&gt;
+        &lt;/label&gt;
+    &lt;br&gt;
+    &lt;br&gt;
+    &lt;input type=""submit""&gt;
+
+ &lt;/form&gt;
+ """"""
+
+import webapp2
+
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+month_abbvs = dict((m[:3].lower(), m) for m in months)
+
+def valid_month(month): if month:
+
+def valid_day(day): if day and day.isdigit():
+
+def valid_year(year): if year and year.isdigit(): year = int(year) if year &gt; 1900 and year &lt;= 2020: return year
+
+class MainHandler(webapp2.RequestHandler):
+
+    def get(self):
+        #self.response.headers['Content-Type'] = 'text/plain'
+        self.response.out.write(form)
+    def post(self):
+        self.response.out.write(""Thanks for your Birthday info!"")
+
+app = webapp2.WSGIApplication([('/', MainHandler)], #url mapping section
+                              debug=True)
+</code></pre>"	"question"	"\N"	"\N"	"2012-05-16 12:47:48.980972+00"	"0"	""	"6128269"	"100001071"	"2012-05-16 14:23:50.689135+00"	"6026126"	"\N"	"\N"	"362"	"f"
